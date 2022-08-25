@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Notification</title>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center;">Django Schedule Notification</h1>
+
+    <div id="notifications">
+
+    </div>
+
+
+    <script>
+
+        var notifications = document.getElementById("notifications");
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+    
+        var pusher = new Pusher('your key', {
+          cluster: 'ap2'
+        });
+    
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+          notifications.innerHTML += `
+          <h3 style="color:red;">${data.message}</h3>
+          `
+        });
+      </script>
+    
+</body>
+</html>
